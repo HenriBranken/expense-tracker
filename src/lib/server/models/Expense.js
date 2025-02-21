@@ -1,27 +1,33 @@
 import mongoose, { Schema } from 'mongoose';
+import { Decimal128 } from 'mongoose.Schema.Types';
 
 // Define the expense Schema.
-const expenseSchema = new Schema({
-	title: {
-		type: String,
-		required: true
+const expenseSchema = new Schema(
+	{
+		title: {
+			type: String,
+			required: true
+		},
+		amount: {
+			type: Decimal128,
+			required: true,
+			min: 0,
+			set: (value) => Decimal128.fromString(value.toFixed(2)), // Stores as Decimal128
+			get: (value) => parseFloat(value.toString()) // Convert back to readable format
+		},
+		description: {
+			type: String,
+			required: true,
+			default: 'Unspecified Description'
+		},
+		date: {
+			type: Date,
+			required: true,
+			default: Date.now
+		}
 	},
-	amount: {
-		type: Number,
-		required: true,
-		set: (value) => parseFloat(value.toFixed(2)) // ensure 2 decimal places.
-	},
-	description: {
-		type: String,
-		required: true,
-		default: 'Unspecified Description'
-	},
-	date: {
-		type: Date,
-		required: true,
-		default: Date.now
-	}
-});
+	{ collection: 'expenses' }
+);
 
 // Convert Schema to a Model:
 const expenseModel = mongoose.model('Expense', expenseSchema);

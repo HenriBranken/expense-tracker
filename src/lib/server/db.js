@@ -6,6 +6,7 @@ dotenv.config(); // Load .env variables
 const MONGO_URI = process.env.MONGO_URI;
 
 export async function connectDB() {
+	// Prevent redundant connection.
 	if (mongoose.connection.readyState === 1) return;
 
 	try {
@@ -15,6 +16,6 @@ export async function connectDB() {
 		});
 		console.log('MongoDB Connected');
 	} catch (err) {
-		console.error('MongoDB Connection Error:', err);
+		console.error(`MongoDB Connection Error: ${err}`);
 	}
 }
