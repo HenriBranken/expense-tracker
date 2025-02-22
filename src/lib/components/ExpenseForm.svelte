@@ -1,4 +1,6 @@
 <script>
+	import AddButton from '$lib/components/AddButton.svelte';
+
 	let dateString = () => new Date().toISOString().split('T')[0];
 
 	let fields = {
@@ -30,7 +32,7 @@
 		<label for="amount">Amount (ZAR):</label>
 		<input type="number" step="0.01" min="0.01" id="amount" required bind:value={fields.amount} />
 	</div>
-	<button>Add Expense</button>
+	<AddButton />
 </form>
 
 <style>
@@ -52,17 +54,5 @@
 		display: block;
 		margin-bottom: 6px;
 		font-weight: bold;
-	}
-
-	button {
-		display: block;
-		margin: 20px auto;
-		padding: 10px 15px;
-		border-radius: 6px;
-		background: red;
-		color: white;
-		font-size: 1.5rem;
-		font-weight: bold;
-		cursor: pointer;
 	}
 </style>
