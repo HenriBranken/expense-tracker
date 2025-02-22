@@ -1,5 +1,4 @@
 import mongoose, { Schema } from 'mongoose';
-import { Decimal128 } from 'mongoose.Schema.Types';
 
 // Define the expense Schema.
 const expenseSchema = new Schema(
@@ -9,10 +8,10 @@ const expenseSchema = new Schema(
 			required: true
 		},
 		amount: {
-			type: Decimal128,
+			type: Schema.Types.Decimal128,
 			required: true,
 			min: 0,
-			set: (value) => Decimal128.fromString(value.toFixed(2)), // Stores as Decimal128
+			set: (value) => Schema.Types.Decimal128.fromString(value.toFixed(2)), // Stores as Decimal128
 			get: (value) => parseFloat(value.toString()) // Convert back to readable format
 		},
 		description: {
