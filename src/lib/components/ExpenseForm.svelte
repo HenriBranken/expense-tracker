@@ -62,6 +62,12 @@
 			errorsMsgs.amount = 'Amount must be a positive number.';
 			return false;
 		}
+
+		// Check for more than 2 decimal places
+		if (/\.\d{3,}$/.test(amountValue)) {
+			errorsMsgs.amount = 'Amount cannot have more than 2 decimal places.';
+			return false;
+		}
 		fields.amount = Number(fields.amount);
 		errorsMsgs.amount = '';
 		return true;
@@ -118,6 +124,7 @@
 		<label for="amount">Amount (ZAR):</label>
 		<input
 			type="number"
+			min="0.01"
 			step="0.01"
 			id="amount"
 			bind:value={fields.amount}
