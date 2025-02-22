@@ -1,6 +1,7 @@
 <script>
 	import Tabs from '$lib/components/Tabs.svelte';
 	import ExpenseForm from '$lib/components/ExpenseForm.svelte';
+	import ExpenseList from '$lib/components/ExpenseList.svelte';
 	import { onMount } from 'svelte';
 
 	import { fetchExpenses, addExpense, deleteExpense } from '$lib/api.js';
@@ -48,7 +49,7 @@
 <main>
 	<Tabs {activeTab} {tabs} on:tabChange={tabChange} />
 	{#if activeTab === tabs[0]}
-		<p>Expense List comes here</p>
+		<ExpenseList {expenses} />
 	{:else if activeTab === tabs[1]}
 		<ExpenseForm on:addNewExpense={handleAddExpense} />
 	{/if}
