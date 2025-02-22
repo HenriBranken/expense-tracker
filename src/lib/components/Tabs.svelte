@@ -44,5 +44,6 @@
 		all: unset;
 		display: inline-block;
 		cursor: pointer;
+		font-weight: bolder;
 	}
 </style>
