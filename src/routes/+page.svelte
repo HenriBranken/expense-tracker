@@ -3,6 +3,7 @@
 	import ExpenseForm from '$lib/components/ExpenseForm.svelte';
 	import ExpenseList from '$lib/components/ExpenseList.svelte';
 	import { onMount } from 'svelte';
+	import { setContext } from 'svelte';
 
 	import { fetchExpenses, addExpense, deleteExpense } from '$lib/api.js';
 
@@ -44,6 +45,7 @@
 
 	// Load the expenses when the component mounts:
 	onMount(loadExpenses);
+	setContext('handleDeleteExpense', handleDeleteExpense);
 </script>
 
 <main>

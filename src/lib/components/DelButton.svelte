@@ -1,4 +1,15 @@
-<button class="delete-btn"> &times; </button>
+<script>
+	import { getContext } from 'svelte';
+	const handleDeleteExpense = getContext('handleDeleteExpense');
+
+	export let expenseId;
+
+	const handleDeleteClick = () => {
+		handleDeleteExpense(expenseId);
+	};
+</script>
+
+<button on:click={handleDeleteClick} class="delete-btn"> &times; </button>
 
 <style>
 	.delete-btn {

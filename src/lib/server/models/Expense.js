@@ -24,12 +24,22 @@ const expenseSchema = new Schema(
 			required: true,
 			set: (value) => {
 				const dateObj = new Date(value);
-				return isNaN(dateObj) ? undefined : dateObj; // Ensures a valid Date object is stored
+				return isNaN(dateObj) ? undefined : dateObj; // Ensure a valid Date object is stored
 			},
-			get: (value) => value.toISOString().split('T')[0] // Returns yyyy-mm-dd
+			get: (value) => {
+				return new Intl.DateTimeFormat('en-GB', {
+					day: '2-digit',
+					month: 'short',
+					year: 'numeric'
+				}).format(value);
+			}
 		}
 	},
-	{ collection: 'expenses' }
+	{
+		collection: 'expenses',
+		toJSON: { getters: true },
+		toObject: { getters: true }
+	}
 );
 
 // Added the `||` for hot-reload.

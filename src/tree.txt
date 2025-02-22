@@ -1,0 +1,38 @@
+Folder PATH listing
+Volume serial number is A248-90AF
+C:.
+|   app.html
+|   tree.txt
+|   
++---lib
+|   |   api.js
+|   |   index.js
+|   |   
+|   +---components
+|   |       AddButton.svelte
+|   |       DelButton.svelte
+|   |       ExpenseCard.svelte
+|   |       ExpenseDetails.svelte
+|   |       ExpenseForm.svelte
+|   |       ExpenseList.svelte
+|   |       Footer.svelte
+|   |       Header.svelte
+|   |       Tabs.svelte
+|   |       
+|   \---server
+|       |   db.js
+|       |   
+|       \---models
+|               Expense.js
+|               
++---routes
+|   |   +layout.svelte
+|   |   +page.svelte
+|   |   
+|   \---api
+|       \---expenses
+|               +server.js
+|               
+\---styles
+        global.scss
+        
