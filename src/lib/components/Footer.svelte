@@ -16,5 +16,6 @@
 		font-size: 12px;
 		color: #666;
 		border-top: 1px solid #ddd;
+		padding: 20px;
 	}
 </style>
