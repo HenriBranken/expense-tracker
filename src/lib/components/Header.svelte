@@ -10,7 +10,4 @@
 	h1 {
 		text-align: center;
 	}
-	img {
-		max-width: 180px;
-	}
 </style>

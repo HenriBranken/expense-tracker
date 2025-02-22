@@ -1,6 +1,15 @@
+<script>
+	import Tabs from '../lib/components/Tabs.svelte';
+
+	let tabs = ['Current Expenses', 'Create New Expense'];
+	let activeTab = tabs[0];
+
+	const tabChange = (e) => {
+		e.preventDefault();
+		activeTab = e.detail;
+	};
+</script>
+
 <main>
-	<p>
-		Lorem ipsum dolor sit amet consectetur adipisicing elit. Facere delectus quod reiciendis, eum
-		ipsa amet vitae est nihil? Qui sapiente eius eos nostrum asperiores repellat. Abcd.
-	</p>
+	<Tabs {activeTab} {tabs} on:tabChange={tabChange} />
 </main>
