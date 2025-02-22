@@ -19,23 +19,20 @@
 		const data = await fetchExpenses();
 		expenses = data;
 		console.log(
-			`Inside +page.svelte, inside loadExpenses(), expenses are: ${expenses} with length ${expenses.length}.`
+			`Inside +page.svelte, inside loadExpenses(), expenses have length ${expenses.length}.`
 		);
 	};
 
 	const handleAddExpense = async (event) => {
 		const newExpense = event.detail;
-		console.log(`Inside +page.svelte, inside handleAddExpense(), newExpense is: ${newExpense}.`);
 		console.log(
 			`${newExpense.title} ${newExpense.description} ${newExpense.date} ${newExpense.amount} ${typeof newExpense.amount}`
 		);
 		const addedExpense = await addExpense(newExpense);
-		console.log(
-			`Inside +page.svelte, inside handleAddExpense(), addedExpense is: ${addedExpense}.`
-		);
 
 		if (addedExpense) {
 			expenses = [...expenses, addedExpense];
+			activeTab = tabs[0];
 		}
 	};
 
@@ -50,7 +47,9 @@
 
 <main>
 	<Tabs {activeTab} {tabs} on:tabChange={tabChange} />
-	{#if activeTab === tabs[0]}{:else if activeTab === tabs[1]}
+	{#if activeTab === tabs[0]}
+		<p>Expense List comes here</p>
+	{:else if activeTab === tabs[1]}
 		<ExpenseForm on:addNewExpense={handleAddExpense} />
 	{/if}
 </main>
