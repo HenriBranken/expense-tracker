@@ -8,7 +8,7 @@ export const fetchExpenses = async () => {
 		const { data } = await axios.get(EXPENSE_API_URL);
 		return data;
 	} catch (error) {
-		console.error('Error fetching expenses:', error.message);
+		console.error(`Error fetching expenses in UI. See following error message:\n${error.message}`);
 		return [];
 	}
 };
@@ -19,7 +19,9 @@ export const addExpense = async (expense) => {
 		const { data } = await axios.post(EXPENSE_API_URL, expense);
 		return data;
 	} catch (error) {
-		console.error('Error adding expense:', error.message);
+		console.error(
+			`Error adding expense in UI. Please see following error message:\n${error.message}`
+		);
 		return null;
 	}
 };
@@ -30,7 +32,7 @@ export const deleteExpense = async (id) => {
 		const { data } = await axios.delete(EXPENSE_API_URL, { data: { id } });
 		return data;
 	} catch (error) {
-		console.error('Error deleting expense:', error.message);
+		console.error(`Error deleting expense. See the following error message:\n${error.message}`);
 		return null;
 	}
 };

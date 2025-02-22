@@ -28,8 +28,5 @@ const expenseSchema = new Schema(
 	{ collection: 'expenses' }
 );
 
-// Convert Schema to a Model:
-const expenseModel = mongoose.model('Expense', expenseSchema);
-
 // Added the `||` for hot-reload.
-export default mongoose.models.Expense || expenseModel;
+export default mongoose.models.Expense || mongoose.model('Expense', expenseSchema);
