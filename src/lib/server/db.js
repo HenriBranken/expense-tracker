@@ -7,7 +7,7 @@ const MONGO_URI = process.env.MONGO_URI;
 
 export async function connectDB() {
 	// Prevent redundant connection.
-	if (mongoose.connection.readyState === 1) return;
+	if (mongoose.connection.readyState >= 1) return;
 
 	try {
 		await mongoose.connect(MONGO_URI, {
