@@ -1,3 +1,5 @@
+// lib/server/models/Expense.js
+
 import mongoose, { Schema } from 'mongoose';
 
 // Define the expense Schema.
@@ -8,11 +10,9 @@ const expenseSchema = new Schema(
 			required: true
 		},
 		amount: {
-			type: Schema.Types.Decimal128,
+			type: Number,
 			required: true,
-			min: 0,
-			set: (value) => Schema.Types.Decimal128.fromString(value.toFixed(2)), // Stores as Decimal128
-			get: (value) => parseFloat(value.toString()) // Convert back to readable format
+			min: 0.01
 		},
 		description: {
 			type: String,
@@ -22,7 +22,11 @@ const expenseSchema = new Schema(
 		date: {
 			type: Date,
 			required: true,
-			default: Date.now
+			set: (value) => {
+				const dateObj = new Date(value);
+				return isNaN(dateObj) ? undefined : dateObj; // Ensures a valid Date object is stored
+			},
+			get: (value) => value.toISOString().split('T')[0] // Returns yyyy-mm-dd
 		}
 	},
 	{ collection: 'expenses' }

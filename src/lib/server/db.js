@@ -1,19 +1,17 @@
+// lib/server/db.js
+
 import mongoose from 'mongoose';
-import dotenv from 'dotenv';
-
-dotenv.config(); // Load .env variables
-
-const MONGO_URI = process.env.MONGO_URI;
+import { MONGO_URI } from '$env/static/private';
 
 export async function connectDB() {
 	// Prevent redundant connection.
-	if (mongoose.connection.readyState >= 1) return;
+	if (mongoose.connection.readyState >= 1) {
+		console.log('MongoDB Connection already up and running.');
+		return;
+	}
 
 	try {
-		await mongoose.connect(MONGO_URI, {
-			useNewUrlParser: true,
-			useUnifiedTopology: true
-		});
+		await mongoose.connect(MONGO_URI);
 		console.log('MongoDB Connected');
 	} catch (err) {
 		console.error(`MongoDB Connection Error: ${err}`);

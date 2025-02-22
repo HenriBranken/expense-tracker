@@ -1,6 +1,10 @@
-import axios from 'axios';
+// lib/api.js
 
-const EXPENSE_API_URL = '/api/expenses';
+import axios from 'axios';
+// import { EXPENSE_API_URL } from '$env/static/private';
+
+const EXPENSE_API_URL =
+	process.env.NODE_ENV === 'development' ? 'http://localhost:5173/api/expenses' : '/api/expenses';
 
 // Fetch all expenses.
 export const fetchExpenses = async () => {
@@ -18,6 +22,10 @@ export const fetchExpenses = async () => {
 // Add a new expense.
 export const addExpense = async (expense) => {
 	try {
+		console.log(`The node environment is ${process.env.NODE_ENV}.`);
+		console.log(
+			`Inside lib/api.js, inside addExpense, title = ${expense.title} description = ${expense.description} date = ${expense.date} amount = ${expense.amount} ${typeof expense.amount}.`
+		);
 		const { data } = await axios.post(EXPENSE_API_URL, expense);
 		return data;
 	} catch (error) {

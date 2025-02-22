@@ -1,3 +1,5 @@
+// routes/api/expenses/+server.js
+
 import { connectDB } from '$lib/server/db.js';
 import Expense from '$lib/server/models/Expense.js';
 
@@ -27,6 +29,7 @@ export async function POST({ request }) {
 		const expense = await Expense.create(await request.json());
 		return new Response(JSON.stringify(expense), { status: 201 });
 	} catch (error) {
+		console.error(`Could not add a new expense. See error message below:\n${error.message}`);
 		return new Response(
 			JSON.stringify({
 				error: `Could not add a new expense. See error message below:\n${error.message}`

@@ -58,20 +58,24 @@
 	// Validate Amount
 	const validateAmount = () => {
 		let amountValue = fields.amount.toString().trim();
-		if (amountValue === '' || isNaN(amountValue) || amountValue <= 0) {
+		if (amountValue === '' || isNaN(amountValue) || Number(amountValue) <= 0) {
 			errorsMsgs.amount = 'Amount must be a positive number.';
 			return false;
 		}
+		fields.amount = Number(fields.amount);
 		errorsMsgs.amount = '';
 		return true;
 	};
 
 	// Submit Expense (Calls all validation functions)
 	const submitExpense = () => {
-		valid = validateTitle() && validateDescription() && validateDate() && validateAmount();
-
+		let titleValid = validateTitle();
+		let descValid = validateDescription();
+		let dateValid = validateDate();
+		let amountValid = validateAmount();
+		valid = titleValid && descValid && dateValid && amountValid;
 		if (valid) {
-			dispatch('addExpense', { ...fields }); // Emit event with validated data.
+			dispatch('addNewExpense', { ...fields }); // Emit custom event 'addExpense' with validated data.
 			fields = {
 				title: '',
 				description: '',
