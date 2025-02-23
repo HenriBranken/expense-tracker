@@ -8,14 +8,19 @@
 
 <style>
 	footer {
-		margin: 40px 40px 0 40px;
+		margin-top: auto;
+		width: 100%;
 		text-align: center;
+		background: #f8f8f8;
+		position: fixed;
+		bottom: 0;
+		left: 0;
+		padding: 15px;
+		border-top: solid #999 1px;
 	}
 
 	.copyright {
 		font-size: 12px;
 		color: #666;
-		border-top: 1px solid #ddd;
-		padding: 20px;
 	}
 </style>

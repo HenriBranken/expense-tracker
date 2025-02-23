@@ -5,13 +5,17 @@
 </script>
 
 <div>
-	Total Expense:&ensp; <span class="currency">R</span><span class="rands">{rands}</span><span
+	Total:&ensp;<br /><span class="currency">R&nbsp;</span><span class="rands">{rands}</span><span
 		class="dot">&middot;</span
 	><span class="cents">{cents}</span>
 </div>
 
 <style>
 	div {
+		position: fixed;
+		left: 0;
+		top: 33%;
+		margin-left: 12px;
 		font-size: 2.3rem;
 		font-weight: bold;
 		text-align: left;
@@ -24,14 +28,13 @@
 	.rands {
 		font-size: 2rem;
 		font-weight: bold;
-		color: #222;
-	}
-
-	.cents {
-		font-size: 1.5rem;
 	}
 
 	.dot {
 		vertical-align: middle;
+	}
+
+	.cents {
+		font-size: 1.5rem;
 	}
 </style>

@@ -98,7 +98,7 @@
 	.sidebar {
 		position: fixed;
 		left: 0;
-		top: 50%;
+		top: 60%;
 		transform: translateY(-50%);
 		display: flex;
 		flex-direction: column;
