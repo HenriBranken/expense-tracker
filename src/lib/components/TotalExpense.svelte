@@ -5,8 +5,8 @@
 </script>
 
 <div>
-	Total Expense: <span class="currency">R</span><span class="rands">{rands}</span><span class="dot"
-		>&middot;</span
+	Total Expense:&ensp; <span class="currency">R</span><span class="rands">{rands}</span><span
+		class="dot">&middot;</span
 	><span class="cents">{cents}</span>
 </div>
 

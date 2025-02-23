@@ -7,6 +7,7 @@
 
 	import { fetchExpenses, addExpense, deleteExpense } from '$lib/api.js';
 	import TotalExpense from '$lib/components/TotalExpense.svelte';
+	import Loading from '$lib/components/Loading.svelte';
 
 	let tabs = ['Current Expenses', 'Create New Expense'];
 	let activeTab = tabs[0];
@@ -18,6 +19,17 @@
 
 	let expenses = [];
 	let isLoading = true;
+
+	// Sorting function
+	const handleSortExpenses = (criterion) => {
+		if (criterion === 'name') {
+			expenses = [...expenses].sort((a, b) => a.title.localeCompare(b.title));
+		} else if (criterion === 'amount') {
+			expenses = [...expenses].sort((a, b) => a.amount - b.amount);
+		} else if (criterion === 'date') {
+			expenses = [...expenses].sort((a, b) => new Date(a.date) - new Date(b.date));
+		}
+	};
 
 	const loadExpenses = async () => {
 		const data = await fetchExpenses();
@@ -63,10 +75,16 @@
 
 <main>
 	{#if isLoading}
-		<p>Loading. . .</p>
+		<Loading />
 	{:else}
 		<TotalExpense {total} />
 	{/if}
+
+	<div class="sidebar">
+		<button on:click={() => handleSortExpenses('name')}>Order by Name</button>
+		<button on:click={() => handleSortExpenses('amount')}>Order by Amount</button>
+		<button on:click={() => handleSortExpenses('date')}>Order by Date</button>
+	</div>
 
 	<Tabs {activeTab} {tabs} on:tabChange={tabChange} />
 	{#if activeTab === tabs[0]}
@@ -75,3 +93,34 @@
 		<ExpenseForm on:addNewExpense={handleAddExpense} />
 	{/if}
 </main>
+
+<style>
+	.sidebar {
+		position: fixed;
+		left: 0;
+		top: 50%;
+		transform: translateY(-50%);
+		display: flex;
+		flex-direction: column;
+		gap: 10px;
+		padding: 10px;
+		background: rgba(0, 0, 0);
+		border-radius: 0 10px 10px 0;
+	}
+
+	.sidebar button {
+		background: #3498db;
+		color: white;
+		border: none;
+		padding: 10px 15px;
+		border-radius: 5px;
+		cursor: pointer;
+		font-size: 1rem;
+		transition: background 0.3s ease-in-out;
+		text-align: left;
+	}
+
+	.sidebar button:hover {
+		background: #2980b9;
+	}
+</style>
