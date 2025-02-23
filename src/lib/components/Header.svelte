@@ -6,7 +6,7 @@
 <style>
 	header {
 		background: black;
-		padding: 20px;
+		padding: 10px;
 		display: flex;
 		align-items: center;
 		justify-content: center;
