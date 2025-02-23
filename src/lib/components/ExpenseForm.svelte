@@ -149,7 +149,7 @@
 	input {
 		width: 100%;
 		border-radius: 6px;
-		padding: 4px;
+		padding: 6px;
 	}
 	label {
 		display: block;
