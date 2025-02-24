@@ -31,6 +31,7 @@
 		"axios": "1.7.9",
 		"dotenv": "16.4.7",
 		"mongoose": "8.10.1",
-		"svelte2tsx": "0.7.34"
+		"svelte2tsx": "0.7.34",
+		"zod": "3.24.2"
 	}
 }

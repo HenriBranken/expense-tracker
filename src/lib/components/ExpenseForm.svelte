@@ -1,10 +1,9 @@
 <script>
+	import { generateTodayString } from '$lib/utils';
 	import AddButton from '$lib/components/AddButton.svelte';
 	import { createEventDispatcher } from 'svelte';
 
 	let dispatch = new createEventDispatcher();
-
-	let generateTodayString = () => new Date().toISOString().split('T')[0];
 
 	let fields = {
 		title: '',
