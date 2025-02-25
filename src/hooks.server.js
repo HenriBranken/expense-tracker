@@ -10,12 +10,16 @@ export async function handle({ event, resolve }) {
 		// Validate the session using Lucia.
 		//    If Valid, fetch the corresponding user from the database.
 		//    Else, user will be null.
-		const { user } = await lucia.validateSession(sessionId);
-
 		// Store the `user` in event.locals
 		//    `user` is available to every request and load function.
 		//    Allow pages and API to easily access the logged-in user.
-		event.locals.user = user;
+		try {
+			const { user } = await lucia.validateSession(sessionId);
+			event.locals.user = user || null;
+		} catch (error) {
+			console.error(`Inside the hooks.server.js, the session validation failed:\n${error}.`);
+			event.locals.user = null;
+		}
 	} else {
 		event.locals.user = null;
 	}
