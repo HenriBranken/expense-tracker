@@ -28,10 +28,11 @@
 		"vite": "^6.0.0"
 	},
 	"dependencies": {
+		"@lucia-auth/adapter-mongoose": "3.0.1",
 		"axios": "1.7.9",
 		"bcryptjs": "3.0.2",
 		"dotenv": "16.4.7",
-		"lucia": "3.2.2",
+		"lucia": "2.7.7",
 		"mongoose": "8.10.1",
 		"svelte2tsx": "0.7.34",
 		"zod": "3.24.2"
