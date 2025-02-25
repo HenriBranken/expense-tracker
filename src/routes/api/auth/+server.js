@@ -1,3 +1,5 @@
+// lib/routes/api/auth/+server.js
+
 import { json } from '@sveltejs/kit';
 import { User } from '$lib/server/db';
 import { lucia } from '$lib/server/auth';

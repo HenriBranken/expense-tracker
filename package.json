@@ -29,6 +29,7 @@
 	},
 	"dependencies": {
 		"@lucia-auth/adapter-mongoose": "3.0.1",
+		"@lucia-sveltekit/adapter-mongoose": "0.10.0",
 		"axios": "1.7.9",
 		"bcryptjs": "3.0.2",
 		"dotenv": "16.4.7",

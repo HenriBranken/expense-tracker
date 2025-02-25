@@ -1,7 +1,7 @@
 // src/lib/server/auth.js --> Configure Lucia Authentication.
 
 import { Lucia } from 'lucia';
-import { mongoose } from '@lucia-auth/adapter-mongoose'; // allow Lucia to use MongoDB as the database
+import { MongooseAdapter } from '@lucia-auth/adapter-mongoose'; // allow Lucia to use MongoDB as the database
 import User from './models/User';
 
 let envVal = process.env.NODE_ENV === 'development' ? 'DEV' : 'PROD';
@@ -14,7 +14,7 @@ let envVal = process.env.NODE_ENV === 'development' ? 'DEV' : 'PROD';
  */
 
 export const lucia = new Lucia({
-	adapter: new mongoose(User),
+	adapter: new MongooseAdapter(User),
 	env: envVal,
 	transformDatabaseUser: (user) => {
 		return { userId: user._id, username: user.username };

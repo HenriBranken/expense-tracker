@@ -5,6 +5,9 @@ import mongoose, { Schema } from 'mongoose';
 // Define the expense Schema.
 const userSchema = new Schema(
 	{
+		_id: {
+			type: String
+		},
 		username: {
 			type: String,
 			required: true

@@ -8,7 +8,7 @@ const AUTH_API_URL =
 
 export const login = async (username, password) => {
 	try {
-		await axios.post(`${AUTH_API_URL}/login`, { username, password });
+		await axios.post(AUTH_API_URL, { action: 'login', username, password });
 		return 'Login Successful';
 	} catch (error) {
 		console.error(`Inside luciaApi.js, the error for login attempt is:\n${error}.`);
@@ -18,7 +18,7 @@ export const login = async (username, password) => {
 
 export const logout = async () => {
 	try {
-		await axios.post(`${AUTH_API_URL}/logout`);
+		await axios.post(AUTH_API_URL, { action: 'logout' });
 		return 'Logged Out!';
 	} catch (error) {
 		console.error(`Inside luciaApi.js, the error for logout attempt is:\n${error}`);
