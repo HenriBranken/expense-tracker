@@ -14,5 +14,4 @@ In this app, a user should be able to visit the site, and see a list of expenses
 - Make the styling more aesthetically pleasing
   - Use Vite or DaisyUI
   - Responsive Design for Mobile
-- Add Zod schemas for fancier validation
 - Integrate Lucia for email/password authentication
