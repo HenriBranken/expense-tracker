@@ -3,26 +3,30 @@
 import mongoose, { Schema } from 'mongoose';
 
 // Define the expense Schema.
-const userSchema = new Schema(
+const keySchema = new Schema(
 	{
 		_id: {
 			type: String,
 			required: true
 		},
-		username: {
+		user_id: {
 			type: String,
 			required: true
 		},
-		password: {
+		hashed_password: {
 			type: String,
+			required: true
+		},
+		primary: {
+			type: Boolean,
 			required: true
 		}
 	},
 	{
-		collection: 'users',
+		collection: 'keys',
 		_id: false
 	}
 );
 
 // Added the `||` for hot-reload.
-export default mongoose.models.User || mongoose.model('User', userSchema);
+export default mongoose.models.Key || mongoose.model('Key', keySchema);

@@ -4,7 +4,7 @@ const AUTH_API_URL =
 	process.env.NODE_ENV === 'development' ? 'http://localhost:5173/api/auth' : '/api/auth';
 
 // Try this out later:
-// const AUTH_API_URL = import.meta.env.VITE_AUTH_API_URL || '/api/auth';
+// const AUTH_API_URL = import.meta.env.VITE_AUTH_API_URL || '/api/auth'; asdf
 
 export const login = async (username, password) => {
 	try {

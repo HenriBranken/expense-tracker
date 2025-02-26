@@ -34,6 +34,7 @@
 		"bcryptjs": "3.0.2",
 		"dotenv": "16.4.7",
 		"lucia": "2.7.7",
+		"lucia-auth": "1.8.0",
 		"mongoose": "8.10.1",
 		"svelte2tsx": "0.7.34",
 		"zod": "3.24.2"

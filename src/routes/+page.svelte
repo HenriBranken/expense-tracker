@@ -9,6 +9,8 @@
 	import TotalExpense from '$lib/components/TotalExpense.svelte';
 	import Loading from '$lib/components/Loading.svelte';
 
+	import { login, logout } from '$lib/luciaApi';
+
 	let tabs = ['Current Expenses', 'Create New Expense'];
 	let activeTab = tabs[0];
 
@@ -19,6 +21,14 @@
 
 	let expenses = [];
 	let isLoading = true;
+
+	// Get the `user` from the server load function in +layout.svelte.
+	export let data; // `data` automatically provided by SvelteKit's `load` function.
+	let { user } = data; // destructure `user`.
+
+	// ----------------------------------------------------------------------------------------------
+	// Expense Handler Functions.
+	// ----------------------------------------------------------------------------------------------
 
 	// Sorting function
 	const handleSortExpenses = (criterion) => {
@@ -62,35 +72,75 @@
 		isLoading = false;
 	};
 
-	// Load the expenses when the component mounts:
-	onMount(loadExpenses);
-	setContext('handleDeleteExpense', handleDeleteExpense);
-
 	const computeTotal = (arr, boolFlag) => {
 		return !boolFlag ? arr.reduce((sum, elem) => sum + elem.amount, 0) : 0;
 	};
-
 	$: total = computeTotal(expenses, isLoading);
+
+	// ----------------------------------------------------------------------------------------------
+	// Auth Handler Functions.
+	// ----------------------------------------------------------------------------------------------
+
+	let username = '';
+	let password = '';
+	let message = '';
+
+	// Load expenses only if user is logged in
+	if (user) {
+		loadExpenses();
+	}
+
+	const handleLogin = async () => {
+		console.log(`username=${username} and password=${password}.`);
+		const response = await login(username, password);
+		if (response.includes('Successful')) {
+			location.reload(); // Reload page to get updated user data from server
+		} else {
+			message = 'Login Failed';
+		}
+	};
+
+	const handleLogout = async () => {
+		await logout();
+		location.reload(); // Reload page to update user state
+	};
+	// ----------------------------------------------------------------------------------------------
+
+	// Load the expenses when the component mounts:
+	onMount(loadExpenses);
+	setContext('handleDeleteExpense', handleDeleteExpense);
 </script>
 
 <main>
-	{#if isLoading}
-		<Loading />
+	{#if !user}
+		<!-- Show login form if user is not logged in -->
+		<h1>Login</h1>
+		<input type="text" bind:value={username} placeholder="Username" />
+		<input type="password" bind:value={password} placeholder="Password" />
+		<button on:click={handleLogin}>Login</button>
+		<p>{message}</p>
 	{:else}
-		<TotalExpense {total} />
-	{/if}
+		<!-- Show the main application if user is logged in -->
+		<button on:click={handleLogout}>Logout</button>
 
-	<div class="sidebar">
-		<button on:click={() => handleSortExpenses('name')}>Order by Name</button>
-		<button on:click={() => handleSortExpenses('amount')}>Order by Amount</button>
-		<button on:click={() => handleSortExpenses('date')}>Order by Date</button>
-	</div>
+		{#if isLoading}
+			<Loading />
+		{:else}
+			<TotalExpense {total} />
+		{/if}
 
-	<Tabs {activeTab} {tabs} on:tabChange={tabChange} />
-	{#if activeTab === tabs[0]}
-		<ExpenseList {expenses} />
-	{:else if activeTab === tabs[1]}
-		<ExpenseForm2 on:addNewExpense={handleAddExpense} />
+		<div class="sidebar">
+			<button on:click={() => handleSortExpenses('name')}>Order by Name</button>
+			<button on:click={() => handleSortExpenses('amount')}>Order by Amount</button>
+			<button on:click={() => handleSortExpenses('date')}>Order by Date</button>
+		</div>
+
+		<Tabs {activeTab} {tabs} on:tabChange={tabChange} />
+		{#if activeTab === tabs[0]}
+			<ExpenseList {expenses} />
+		{:else if activeTab === tabs[1]}
+			<ExpenseForm2 on:addNewExpense={handleAddExpense} />
+		{/if}
 	{/if}
 </main>
 
