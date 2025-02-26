@@ -12,6 +12,6 @@ In this app, a user should be able to visit the site, and see a list of expenses
 - Modularise the code to a greater extent
 - Add "Edit" buttons and functionality
 - Make the styling more aesthetically pleasing
-  - Use Vite or DaisyUI
+  - Use TailWind or DaisyUI
   - Responsive Design for Mobile
 - Integrate Lucia for email/password authentication
