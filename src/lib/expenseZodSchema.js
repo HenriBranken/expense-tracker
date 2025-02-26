@@ -22,9 +22,14 @@ export const expenseSchema = z.object({
 		.refine((date) => date.trim() !== '', { message: 'Date cannot be empty.' })
 		.refine((date) => date <= generateTodayString(), { message: 'Future dates are not allowed.' }),
 	amount: z.preprocess(
-		(val) => (typeof val === 'string' ? parseFloat(val) : val),
+		(val) => {
+			if (val === undefined || val === null || val === '') return undefined; // Handle empty input
+			return typeof val === 'string' ? parseFloat(val) : val;
+		},
 		z
-			.number()
+			.number({
+				message: 'Amount is required.'
+			})
 			.positive('Amount must be a positive number.')
 			.refine(
 				(amount) =>

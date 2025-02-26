@@ -12,9 +12,6 @@
 		width: 100%;
 		text-align: center;
 		background: #f8f8f8;
-		position: fixed;
-		bottom: 0;
-		left: 0;
 		padding: 15px;
 		border-top: solid #999 1px;
 	}
