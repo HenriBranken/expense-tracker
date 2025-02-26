@@ -88,40 +88,36 @@
 </script>
 
 <main>
+	<Tabs {activeTab} {tabs} on:tabChange={tabChange} />
 	{#if isLoading}
 		<Loading />
-	{:else}
+	{:else if !isLoading && activeTab === tabs[0]}
 		<TotalExpense {total} />
-	{/if}
-
-	<div class="sidebar">
-		{#each sortFields as field}
-			<div class="sort-row">
-				<span class="label">{field.charAt(0).toUpperCase() + field.slice(1)}</span>
-				<div class="btn-container">
-					<button
-						on:click={() => handleSortExpenses(field, 'asc')}
-						class:active-btn={activeSort.criterion === field && activeSort.order === 'asc'}
-						class="btn"
-					>
-						<FontAwesomeIcon icon={faArrowUp} />
-					</button>
-					<button
-						on:click={() => handleSortExpenses(field, 'desc')}
-						class:active-btn={activeSort.criterion === field && activeSort.order === 'desc'}
-						class="btn"
-					>
-						<FontAwesomeIcon icon={faArrowDown} />
-					</button>
+		<div class="sidebar">
+			{#each sortFields as field}
+				<div class="sort-row">
+					<span class="label">{field.charAt(0).toUpperCase() + field.slice(1)}</span>
+					<div class="btn-container">
+						<button
+							on:click={() => handleSortExpenses(field, 'asc')}
+							class:active-btn={activeSort.criterion === field && activeSort.order === 'asc'}
+							class="btn"
+						>
+							<FontAwesomeIcon icon={faArrowUp} />
+						</button>
+						<button
+							on:click={() => handleSortExpenses(field, 'desc')}
+							class:active-btn={activeSort.criterion === field && activeSort.order === 'desc'}
+							class="btn"
+						>
+							<FontAwesomeIcon icon={faArrowDown} />
+						</button>
+					</div>
 				</div>
-			</div>
-		{/each}
-	</div>
-
-	<Tabs {activeTab} {tabs} on:tabChange={tabChange} />
-	{#if activeTab === tabs[0]}
+			{/each}
+		</div>
 		<ExpenseList {expenses} />
-	{:else if activeTab === tabs[1]}
+	{:else if !isLoading && activeTab === tabs[1]}
 		<ExpenseForm2 on:addNewExpense={handleAddExpense} />
 	{/if}
 </main>
