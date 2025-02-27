@@ -1,5 +1,6 @@
 <script>
 	import DelButton from './DelButton.svelte';
+	import EditButton from './EditButton.svelte';
 	import { createDateString, generateTodayString } from '$lib/utils';
 	export let expense;
 
@@ -28,8 +29,10 @@
 		{:else}
 			<h4>{expense.title}</h4>
 		{/if}
-		<button on:click={toggleEdit}>{isEditing ? 'Cancel' : 'Edit'}</button>
-		<DelButton expenseId={expense._id} />
+		<div class="button-group">
+			<EditButton {isEditing} onClick={toggleEdit} />
+			<DelButton expenseId={expense._id} />
+		</div>
 	</div>
 	{#if isEditing}
 		<!-- Editable Form -->
@@ -76,7 +79,12 @@
 		display: flex;
 		justify-content: space-between;
 		align-items: center;
-		vertical-align: center;
+	}
+
+	.button-group {
+		margin-left: auto; /* Push buttons to the right */
+		display: flex;
+		gap: 8px; /* Add spacing between buttons */
 	}
 
 	h4 {
