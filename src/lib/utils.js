@@ -32,3 +32,10 @@ export let errorMsgsInit = {
 	date: '',
 	amount: ''
 };
+
+export let fieldsInit = {
+	title: '',
+	description: '',
+	date: generateTodayString(),
+	amount: ''
+};

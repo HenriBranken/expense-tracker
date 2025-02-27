@@ -1,5 +1,5 @@
 <script>
-	import { errorMsgsInit, generateTodayString } from '$lib/utils';
+	import { errorMsgsInit, fieldsInit, generateTodayString } from '$lib/utils';
 	import AddButton from '$lib/components/AddButton.svelte';
 	import { createEventDispatcher } from 'svelte';
 	import { error } from '@sveltejs/kit';
@@ -7,12 +7,7 @@
 
 	let dispatch = new createEventDispatcher();
 
-	let fields = {
-		title: '',
-		description: '',
-		date: generateTodayString(),
-		amount: ''
-	};
+	let fields = { ...fieldsInit };
 
 	let errorMsgs = { ...errorMsgsInit };
 
@@ -26,12 +21,7 @@
 
 		if (valid) {
 			dispatch('addNewExpense', { ...fields }); // Emit custom event 'addExpense' with validated data.
-			fields = {
-				title: '',
-				description: '',
-				date: generateTodayString(),
-				amount: ''
-			}; // Reset the form.
+			fields = { ...fieldsInit };
 		}
 	};
 </script>
