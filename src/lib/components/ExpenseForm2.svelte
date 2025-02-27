@@ -2,8 +2,8 @@
 	import { generateTodayString } from '$lib/utils';
 	import AddButton from '$lib/components/AddButton.svelte';
 	import { createEventDispatcher } from 'svelte';
-	import { expenseSchema } from '$lib/expenseZodSchema';
 	import { error } from '@sveltejs/kit';
+	import { validateForm } from '$lib/utils';
 
 	let dispatch = new createEventDispatcher();
 
@@ -23,27 +23,12 @@
 
 	let valid = false;
 
-	// Validate the Form
-	const validateForm = () => {
-		errorMsgs = { ...errorMsgs, title: '', description: '', date: '', amount: '' };
-
-		const result = expenseSchema.safeParse(fields); // Don't throw errors when validation fails.
-
-		// Handle the errors if the validation failed:
-		if (!result.success) {
-			// acc is the accumulator.
-			errorMsgs = result.error.issues.reduce((acc, issue) => {
-				acc = { ...acc, [issue.path[0]]: issue.message };
-				return acc;
-			}, {});
-			return false;
-		}
-		return true;
-	};
-
 	// Submit Expense
 	const submitExpense = () => {
-		valid = validateForm();
+		const result = validateForm(errorMsgs, fields);
+		valid = result.boolVal;
+		errorMsgs = { ...result.errorMsgs };
+
 		if (valid) {
 			dispatch('addNewExpense', { ...fields }); // Emit custom event 'addExpense' with validated data.
 			fields = {
