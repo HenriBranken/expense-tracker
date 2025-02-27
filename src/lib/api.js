@@ -48,3 +48,16 @@ export const deleteExpense = async (id) => {
 		return null;
 	}
 };
+
+export const editExpense = async (updatedExpense) => {
+	try {
+		console.log(`Trying to update the expense with id:  ${updatedExpense._id}.`);
+		const { data } = await axios.put(EXPENSE_API_URL, updatedExpense);
+		return data;
+	} catch (error) {
+		console.error(
+			`From lib/api.js, inside editExpense function, the following error occurred:\n${error.message}`
+		);
+		return null;
+	}
+};

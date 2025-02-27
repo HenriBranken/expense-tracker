@@ -1,6 +1,22 @@
 <script>
 	import DelButton from './DelButton.svelte';
 	export let expense;
+
+	// ----------------------------------------------------------------------------------------------
+	let isEditing = false;
+
+	// The Editable Fields:
+	let editedTitle = expense.title;
+	let editedDescription = expense.description;
+	let editedDate = expense.date;
+	let editedAmount = expense.amount;
+
+	// Toggling Edit Mode:
+	const toggleEdit = () => {
+		isEditing = !isEditing; // negate.
+	};
+
+	// ----------------------------------------------------------------------------------------------
 </script>
 
 <div class="details">
