@@ -1,6 +1,7 @@
 import { expenseSchema } from '$lib/expenseZodSchema';
 
 export const generateTodayString = () => new Date().toISOString().split('T')[0];
+
 export const createDateString = (dateString) => {
 	let date = new Date(dateString);
 	date.setDate(date.getDate() + 1);
@@ -38,4 +39,20 @@ export let fieldsInit = {
 	description: '',
 	date: generateTodayString(),
 	amount: ''
+};
+
+// The Editable Fields:
+export let editableFieldsInit = {
+	title: '',
+	description: '',
+	date: '',
+	amount: '',
+	id: ''
+};
+
+// All error messages:
+export let generateErrorAlert = (obj) => {
+	return Object.values(obj)
+		.filter((value) => typeof value === 'string' && value.trim() !== '')
+		.join('\n');
 };

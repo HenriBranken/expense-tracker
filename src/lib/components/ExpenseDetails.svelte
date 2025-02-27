@@ -1,22 +1,55 @@
 <script>
 	import DelButton from './DelButton.svelte';
 	import EditButton from './EditButton.svelte';
-	import { createDateString, generateTodayString } from '$lib/utils';
+	import SaveButton from './SaveButton.svelte';
+	import { getContext } from 'svelte';
+	import {
+		createDateString,
+		generateTodayString,
+		validateForm,
+		editableFieldsInit,
+		errorMsgsInit,
+		generateErrorAlert
+	} from '$lib/utils';
 	export let expense;
+	const handleEditExpense = getContext('handleEditExpense');
 
 	// ----------------------------------------------------------------------------------------------
 	let isEditing = false;
 
 	// The Editable Fields:
-	let editedTitle = expense.title;
-	let editedDescription = expense.description;
-	let editedDate = createDateString(expense.date);
-	let editedAmount = expense.amount;
+	let editableFields = {
+		id: expense._id,
+		title: expense.title,
+		description: expense.description,
+		date: createDateString(expense.date),
+		amount: expense.amount
+	};
+	let errorMsgs = { ...errorMsgsInit };
 
 	// Toggling Edit Mode:
 	const toggleEdit = () => {
 		isEditing = !isEditing; // negate.
-		console.log(`isEditing is now set to ${isEditing}.`);
+	};
+
+	let valid = false;
+	// Submit Expense
+	const triggerEdit = () => {
+		const result = validateForm(errorMsgs, editableFields);
+		valid = result.boolVal;
+		errorMsgs = { ...result.errorMsgs };
+		if (valid) {
+			console.log(
+				`Inside Details.svelte, Editable Fields are as follows: ${editableFields.id}, ${editableFields.title}, ${editableFields.description}, ${editableFields.date}, ${editableFields.amount}.`
+			);
+			handleEditExpense(editableFields);
+			isEditing = false;
+			valid = false;
+		} else {
+			alert(generateErrorAlert(errorMsgs));
+			valid = false;
+			editableFields = { ...expense, date: createDateString(expense.date), id: expense._id };
+		}
 	};
 
 	// ----------------------------------------------------------------------------------------------
@@ -25,7 +58,7 @@
 <div class="details">
 	<div class="header">
 		{#if isEditing}
-			<input type="text" id="title" bind:value={editedTitle} class="input-title" />
+			<input type="text" id="title" bind:value={editableFields.title} class="input-title" />
 		{:else}
 			<h4>{expense.title}</h4>
 		{/if}
@@ -36,7 +69,10 @@
 	</div>
 	{#if isEditing}
 		<!-- Editable Form -->
-		<p><b>Description:</b> <input type="text" id="description" bind:value={editedDescription} /></p>
+		<p>
+			<b>Description:</b>
+			<input type="text" id="description" bind:value={editableFields.description} />
+		</p>
 		<p>
 			<b>Date:</b>
 			<input
@@ -44,15 +80,15 @@
 				id="date"
 				min="2023-01-01"
 				max={generateTodayString()}
-				bind:value={editedDate}
+				bind:value={editableFields.date}
 			/>
 		</p>
 		<p>
 			<b>Amount:</b>
 			<span class="currency">R</span>
-			<input type="number" id="amount" step="0.01" min="0.01" bind:value={editedAmount} />
+			<input type="number" id="amount" step="0.01" min="0.01" bind:value={editableFields.amount} />
 		</p>
-		<button>Save</button>
+		<SaveButton onClick={triggerEdit} />
 	{:else}
 		<p><b>Description:</b> {expense.description}</p>
 		<p><b>Date:</b> {expense.date}</p>

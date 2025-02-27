@@ -49,10 +49,10 @@ export const deleteExpense = async (id) => {
 	}
 };
 
-export const editExpense = async (updatedExpense) => {
+export const editExpense = async (editedExpense) => {
 	try {
-		console.log(`Trying to update the expense with id:  ${updatedExpense._id}.`);
-		const { data } = await axios.put(EXPENSE_API_URL, updatedExpense);
+		console.log(`Trying to update the expense with id:  ${editedExpense.id}.`);
+		const { data } = await axios.put(EXPENSE_API_URL, editedExpense);
 		return data;
 	} catch (error) {
 		console.error(

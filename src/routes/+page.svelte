@@ -7,7 +7,7 @@
 	import { faArrowUp, faArrowDown } from '@fortawesome/free-solid-svg-icons';
 	import { FontAwesomeIcon } from '@fortawesome/svelte-fontawesome';
 
-	import { fetchExpenses, addExpense, deleteExpense } from '$lib/api.js';
+	import { fetchExpenses, addExpense, deleteExpense, editExpense } from '$lib/api.js';
 	import TotalExpense from '$lib/components/TotalExpense.svelte';
 	import Loading from '$lib/components/Loading.svelte';
 
@@ -64,6 +64,10 @@
 
 		if (addedExpense) {
 			expenses = [...expenses, addedExpense];
+			// Reapply the last sorting order after updating expenses
+			if (activeSort.criterion && activeSort.order) {
+				handleSortExpenses(activeSort.criterion, activeSort.order);
+			}
 			activeTab = tabs[0];
 		}
 		isLoading = false;
@@ -76,9 +80,24 @@
 		isLoading = false;
 	};
 
+	const handleEditExpense = async (updatedExpense) => {
+		isLoading = true;
+		const editedExpense = await editExpense(updatedExpense);
+		if (editedExpense) {
+			await loadExpenses();
+
+			// Reapply the last sorting order after updating expenses
+			if (activeSort.criterion && activeSort.order) {
+				handleSortExpenses(activeSort.criterion, activeSort.order);
+			}
+		}
+		isLoading = false;
+	};
+
 	// Load the expenses when the component mounts:
 	onMount(loadExpenses);
 	setContext('handleDeleteExpense', handleDeleteExpense);
+	setContext('handleEditExpense', handleEditExpense);
 
 	const computeTotal = (arr, boolFlag) => {
 		return !boolFlag ? arr.reduce((sum, elem) => sum + elem.amount, 0) : 0;

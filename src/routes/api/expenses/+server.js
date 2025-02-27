@@ -46,16 +46,17 @@ export async function POST({ request }) {
 // 500 -> Internal Server Error | Server cannot fulfill the request.
 export async function PUT({ request }) {
 	await connectDB();
+	console.log(`From +server.js, inside PUT, this is the request: ${request}.`);
 	try {
-		const { _id, title, description, date, amount } = await request.json();
+		const { id, title, description, date, amount } = await request.json();
 
 		// Cannot extract an identifier from the request object.
-		if (!_id) {
+		if (!id) {
 			return new Response(JSON.stringify({ error: 'Expense ID is required.' }), { status: 400 });
 		}
 
 		const updatedExpense = await Expense.findByIdAndUpdate(
-			_id,
+			id,
 			{ title, description, date, amount },
 			{ new: true, runValidators: true } // return the new document & enforce Schema validation
 		);
