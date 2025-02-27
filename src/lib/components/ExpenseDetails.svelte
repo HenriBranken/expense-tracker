@@ -14,6 +14,7 @@
 	// Toggling Edit Mode:
 	const toggleEdit = () => {
 		isEditing = !isEditing; // negate.
+		console.log(`isEditing is now set to ${isEditing}.`);
 	};
 
 	// ----------------------------------------------------------------------------------------------
@@ -21,12 +22,29 @@
 
 <div class="details">
 	<div class="header">
-		<h4>{expense.title}</h4>
+		{#if isEditing}
+			<input type="text" bind:value={editedTitle} class="input-title" />
+		{:else}
+			<h4>{expense.title}</h4>
+		{/if}
+		<button on:click={toggleEdit}>{isEditing ? 'Cancel' : 'Edit'}</button>
 		<DelButton expenseId={expense._id} />
 	</div>
-	<p><b>Description:</b> {expense.description}</p>
-	<p><b>Date:</b> {expense.date}</p>
-	<p><b>Amount:</b> <span class="currency">R</span>{Number(expense.amount).toFixed(2)}</p>
+	{#if isEditing}
+		<!-- Editable Form -->
+		<p><b>Description:</b> <input type="text" bind:value={editedDescription} /></p>
+		<p><b>Date:</b> <input type="date" bind:value={editedDate} /></p>
+		<p>
+			<b>Amount:</b>
+			<span class="currency">R</span>
+			<input type="number" step="0.01" bind:value={editedAmount} />
+		</p>
+		<button>Save</button>
+	{:else}
+		<p><b>Description:</b> {expense.description}</p>
+		<p><b>Date:</b> {expense.date}</p>
+		<p><b>Amount:</b> <span class="currency">R</span>{Number(expense.amount).toFixed(2)}</p>
+	{/if}
 </div>
 
 <style>
