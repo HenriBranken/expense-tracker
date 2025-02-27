@@ -7,7 +7,7 @@ export const createDateString = (dateString) => {
 	return date.toISOString().split('T')[0];
 };
 
-// Validate the Form
+// Validate the form inputs (when adding / editing expenses)
 export const validateForm = (errorMsgs, fields) => {
 	errorMsgs = { ...errorMsgs, title: '', description: '', date: '', amount: '' };
 
@@ -23,4 +23,12 @@ export const validateForm = (errorMsgs, fields) => {
 		return { boolVal: false, errorMsgs };
 	}
 	return { boolVal: true, errorMsgs };
+};
+
+// The error messages related to the ExpenseForm2.svelte component.
+export let errorMsgsInit = {
+	title: '',
+	description: '',
+	date: '',
+	amount: ''
 };

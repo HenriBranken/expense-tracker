@@ -1,5 +1,5 @@
 <script>
-	import { generateTodayString } from '$lib/utils';
+	import { errorMsgsInit, generateTodayString } from '$lib/utils';
 	import AddButton from '$lib/components/AddButton.svelte';
 	import { createEventDispatcher } from 'svelte';
 	import { error } from '@sveltejs/kit';
@@ -14,12 +14,7 @@
 		amount: ''
 	};
 
-	let errorMsgs = {
-		title: '',
-		description: '',
-		date: '',
-		amount: ''
-	};
+	let errorMsgs = { ...errorMsgsInit };
 
 	let valid = false;
 
