@@ -1,5 +1,6 @@
 <script>
 	import DelButton from './DelButton.svelte';
+	import { createDateString, generateTodayString } from '$lib/utils';
 	export let expense;
 
 	// ----------------------------------------------------------------------------------------------
@@ -8,7 +9,7 @@
 	// The Editable Fields:
 	let editedTitle = expense.title;
 	let editedDescription = expense.description;
-	let editedDate = expense.date;
+	let editedDate = createDateString(expense.date);
 	let editedAmount = expense.amount;
 
 	// Toggling Edit Mode:
@@ -23,7 +24,7 @@
 <div class="details">
 	<div class="header">
 		{#if isEditing}
-			<input type="text" bind:value={editedTitle} class="input-title" />
+			<input type="text" id="title" bind:value={editedTitle} class="input-title" />
 		{:else}
 			<h4>{expense.title}</h4>
 		{/if}
@@ -32,12 +33,21 @@
 	</div>
 	{#if isEditing}
 		<!-- Editable Form -->
-		<p><b>Description:</b> <input type="text" bind:value={editedDescription} /></p>
-		<p><b>Date:</b> <input type="date" bind:value={editedDate} /></p>
+		<p><b>Description:</b> <input type="text" id="description" bind:value={editedDescription} /></p>
+		<p>
+			<b>Date:</b>
+			<input
+				type="date"
+				id="date"
+				min="2023-01-01"
+				max={generateTodayString()}
+				bind:value={editedDate}
+			/>
+		</p>
 		<p>
 			<b>Amount:</b>
 			<span class="currency">R</span>
-			<input type="number" step="0.01" bind:value={editedAmount} />
+			<input type="number" id="amount" step="0.01" min="0.01" bind:value={editedAmount} />
 		</p>
 		<button>Save</button>
 	{:else}
