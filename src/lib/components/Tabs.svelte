@@ -22,7 +22,7 @@
 
 <style>
 	.tabs {
-		margin-bottom: 40px;
+		margin-bottom: 20px;
 	}
 	ul {
 		display: flex;

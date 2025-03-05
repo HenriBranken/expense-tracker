@@ -108,33 +108,33 @@
 
 <main>
 	<Tabs {activeTab} {tabs} on:tabChange={tabChange} />
+	{#if activeTab === tabs[0]}
+		<div class="sortbar">
+			{#each sortFields as field}
+				<div class="sort-row">
+					<span class="label">{field.charAt(0).toUpperCase() + field.slice(1)}</span>
+					<button
+						on:click={() => handleSortExpenses(field, 'asc')}
+						class:active-btn={activeSort.criterion === field && activeSort.order === 'asc'}
+						class="btn"
+					>
+						<FontAwesomeIcon icon={faArrowUp} />
+					</button>
+					<button
+						on:click={() => handleSortExpenses(field, 'desc')}
+						class:active-btn={activeSort.criterion === field && activeSort.order === 'desc'}
+						class="btn"
+					>
+						<FontAwesomeIcon icon={faArrowDown} />
+					</button>
+				</div>
+			{/each}
+		</div>
+	{/if}
 	{#if isLoading}
 		<Loading />
 	{:else if !isLoading && activeTab === tabs[0]}
 		<TotalExpense {total} />
-		<div class="sidebar">
-			{#each sortFields as field}
-				<div class="sort-row">
-					<span class="label">{field.charAt(0).toUpperCase() + field.slice(1)}</span>
-					<div class="btn-container">
-						<button
-							on:click={() => handleSortExpenses(field, 'asc')}
-							class:active-btn={activeSort.criterion === field && activeSort.order === 'asc'}
-							class="btn"
-						>
-							<FontAwesomeIcon icon={faArrowUp} />
-						</button>
-						<button
-							on:click={() => handleSortExpenses(field, 'desc')}
-							class:active-btn={activeSort.criterion === field && activeSort.order === 'desc'}
-							class="btn"
-						>
-							<FontAwesomeIcon icon={faArrowDown} />
-						</button>
-					</div>
-				</div>
-			{/each}
-		</div>
 		<ExpenseList {expenses} />
 	{:else if !isLoading && activeTab === tabs[1]}
 		<ExpenseForm2 on:addNewExpense={handleAddExpense} />
@@ -142,24 +142,25 @@
 </main>
 
 <style>
-	.sidebar {
-		position: fixed;
-		left: 0;
-		top: 60%;
-		transform: translateY(-50%);
+	.sortbar {
 		display: flex;
-		flex-direction: column;
+		align-items: center;
+		justify-content: center;
+		width: fit-content;
+		gap: 16px;
+		white-space: nowrap;
+		overflow-x: auto; /* Enables horizontal scrolling if content overflows */
 		gap: 15px;
 		padding: 15px;
 		background: rgba(0, 0, 0, 0.9);
-		border-radius: 0 10px 10px 0;
+		border-radius: 10px;
+		margin: 0 auto;
 	}
 
 	.sort-row {
-		display: grid;
-		grid-template-columns: 1fr auto; /* Ensures proper alignment */
+		display: flex;
 		align-items: center;
-		gap: 15px;
+		gap: 8px;
 	}
 
 	.label {
@@ -180,11 +181,13 @@
 		color: white;
 		border: none;
 		padding: 6px 10px;
-		border-radius: 500px;
+		border: none;
+		border-radius: 50%;
 		cursor: pointer;
 		font-size: 1rem;
 		transition: background 0.3s ease-in-out;
 		width: 40px; /* Ensures both buttons are the same width */
+		height: 40px;
 		display: flex;
 		align-items: center;
 		justify-content: center;
