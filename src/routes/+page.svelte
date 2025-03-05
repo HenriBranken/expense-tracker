@@ -11,7 +11,7 @@
 	import TotalExpense from '$lib/components/TotalExpense.svelte';
 	import Loading from '$lib/components/Loading.svelte';
 
-	let tabs = ['Current Expenses', 'Create New Expense'];
+	let tabs = ['Current Expenses', 'New Expense'];
 	let activeTab = tabs[0];
 
 	// Sorting fields
@@ -107,42 +107,60 @@
 </script>
 
 <main>
-	<Tabs {activeTab} {tabs} on:tabChange={tabChange} />
-	{#if activeTab === tabs[0]}
-		<div class="sortbar">
-			{#each sortFields as field}
-				<div class="sort-row">
-					<span class="label">{field.charAt(0).toUpperCase() + field.slice(1)}</span>
-					<button
-						on:click={() => handleSortExpenses(field, 'asc')}
-						class:active-btn={activeSort.criterion === field && activeSort.order === 'asc'}
-						class="btn"
-					>
-						<FontAwesomeIcon icon={faArrowUp} />
-					</button>
-					<button
-						on:click={() => handleSortExpenses(field, 'desc')}
-						class:active-btn={activeSort.criterion === field && activeSort.order === 'desc'}
-						class="btn"
-					>
-						<FontAwesomeIcon icon={faArrowDown} />
-					</button>
-				</div>
-			{/each}
-		</div>
-	{/if}
+	<div class="nav">
+		<Tabs {activeTab} {tabs} on:tabChange={tabChange} />
+		{#if activeTab === tabs[0]}
+			<div class="sort-bar">
+				{#each sortFields as field}
+					<div class="sort-row">
+						<span class="label">{field.charAt(0).toUpperCase() + field.slice(1)}</span>
+						<button
+							on:click={() => handleSortExpenses(field, 'asc')}
+							class:active-btn={activeSort.criterion === field && activeSort.order === 'asc'}
+							class="btn"
+						>
+							<FontAwesomeIcon icon={faArrowUp} />
+						</button>
+						<button
+							on:click={() => handleSortExpenses(field, 'desc')}
+							class:active-btn={activeSort.criterion === field && activeSort.order === 'desc'}
+							class="btn"
+						>
+							<FontAwesomeIcon icon={faArrowDown} />
+						</button>
+					</div>
+				{/each}
+			</div>
+		{/if}
+	</div>
 	{#if isLoading}
 		<Loading />
 	{:else if !isLoading && activeTab === tabs[0]}
-		<TotalExpense {total} />
 		<ExpenseList {expenses} />
 	{:else if !isLoading && activeTab === tabs[1]}
 		<ExpenseForm2 on:addNewExpense={handleAddExpense} />
 	{/if}
+	{#if !isLoading && activeTab === tabs[0]}
+		<TotalExpense {total} />
+	{/if}
 </main>
 
 <style>
-	.sortbar {
+	main {
+		margin-top: 0;
+	}
+
+	div.nav {
+		position: sticky;
+		top: 0;
+		width: 100%;
+		background-color: white;
+		z-index: 1000;
+		padding-bottom: 30px;
+		padding-top: 5px;
+	}
+
+	.sort-bar {
 		display: flex;
 		align-items: center;
 		justify-content: center;

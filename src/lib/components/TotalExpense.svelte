@@ -5,20 +5,23 @@
 </script>
 
 <div>
-	Total:&ensp;<br /><span class="currency">R&nbsp;</span><span class="rands">{rands}</span><span
-		class="dot">&middot;</span
+	<span class="currency">R&nbsp;</span><span class="rands">{rands}</span><span class="dot"
+		>&middot;</span
 	><span class="cents">{cents}</span>
 </div>
 
 <style>
 	div {
-		position: fixed;
-		left: 0;
-		top: 33%;
-		margin-left: 12px;
+		position: sticky; /* Sticks relative to the viewport */
+		bottom: 0; /* Positions it at the bottom */
 		font-size: 2.3rem;
 		font-weight: bold;
-		text-align: left;
+		text-align: center;
+		width: 30%;
+		background: rgba(0, 0, 0, 1);
+		color: white;
+		margin: auto;
+		margin-top: 15px;
 	}
 
 	.currency {
@@ -32,6 +35,7 @@
 
 	.dot {
 		vertical-align: middle;
+		padding: 0 5px;
 	}
 
 	.cents {

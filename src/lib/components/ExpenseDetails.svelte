@@ -63,40 +63,69 @@
 			<h4>{expense.title}</h4>
 		{/if}
 		<div class="button-group">
+			{#if isEditing}
+				<SaveButton onClick={triggerEdit} />
+			{/if}
 			<EditButton {isEditing} onClick={toggleEdit} />
 			<DelButton expenseId={expense._id} />
 		</div>
 	</div>
 	{#if isEditing}
 		<!-- Editable Form -->
-		<p>
-			<b>Description:</b>
-			<input type="text" id="description" bind:value={editableFields.description} />
-		</p>
-		<p>
-			<b>Date:</b>
-			<input
-				type="date"
-				id="date"
-				min="2023-01-01"
-				max={generateTodayString()}
-				bind:value={editableFields.date}
-			/>
-		</p>
-		<p>
-			<b>Amount:</b>
-			<span class="currency">R</span>
-			<input type="number" id="amount" step="0.01" min="0.01" bind:value={editableFields.amount} />
-		</p>
-		<SaveButton onClick={triggerEdit} />
+		<div class="deets">
+			<span class="label">Description:</span>
+			<span class="detail">
+				<input type="text" id="description" bind:value={editableFields.description} />
+			</span>
+
+			<span class="label">Date:</span>
+			<span class="detail">
+				<input
+					type="date"
+					id="date"
+					min="2023-01-01"
+					max={generateTodayString()}
+					bind:value={editableFields.date}
+				/>
+			</span>
+
+			<span class="label">Amount:</span>
+			<span class="detail">
+				<input
+					type="number"
+					id="amount"
+					step="0.01"
+					min="0.01"
+					bind:value={editableFields.amount}
+				/>
+			</span>
+		</div>
 	{:else}
-		<p><b>Description:</b> {expense.description}</p>
-		<p><b>Date:</b> {expense.date}</p>
-		<p><b>Amount:</b> <span class="currency">R</span>{Number(expense.amount).toFixed(2)}</p>
+		<div class="deets">
+			<span class="label">Description:</span> <span class="detail">{expense.description}</span>
+			<span class="label">Date:</span> <span class="detail">{expense.date}</span>
+			<span class="label">Amount:</span>
+			<span class="detail">
+				<span class="currency">R</span>{Number(expense.amount).toFixed(2)}
+			</span>
+		</div>
 	{/if}
 </div>
 
 <style>
+	div.deets {
+		margin-top: 10px;
+		display: grid;
+		grid-template-columns: 1fr 3fr;
+		width: 100%;
+	}
+
+	span.label {
+		text-align: right;
+		padding-right: 15px;
+		font-weight: bold;
+	}
+
 	.details {
 		background: #ffffff;
 		padding: 16px;
@@ -111,6 +140,14 @@
 		box-shadow: 0 4px 14px rgba(0, 0, 0, 0.12);
 	}
 
+	.detail input {
+		flex: 1; /* Makes the input fields take up all remaining space */
+		width: 100%;
+		padding: 5px;
+		border: 1px solid #ccc;
+		border-radius: 4px;
+	}
+
 	.header {
 		display: flex;
 		justify-content: space-between;
@@ -119,6 +156,7 @@
 
 	.button-group {
 		margin-left: auto; /* Push buttons to the right */
+		padding-left: 15px;
 		display: flex;
 		gap: 8px; /* Add spacing between buttons */
 	}
