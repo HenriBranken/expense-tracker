@@ -169,13 +169,6 @@
 		font-weight: bold;
 	}
 
-	.btn-container {
-		display: flex;
-		flex-direction: row;
-		justify-content: center;
-		gap: 5px; /* Space between the up & down buttons */
-	}
-
 	.btn {
 		background: #3498db;
 		color: white;
