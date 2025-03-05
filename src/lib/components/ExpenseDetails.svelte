@@ -165,11 +165,6 @@
 		text-decoration: underline;
 	}
 
-	p {
-		margin: 8px 0;
-		font-size: 0.95rem;
-	}
-
 	.currency {
 		color: black;
 		font-size: 1.1rem;
