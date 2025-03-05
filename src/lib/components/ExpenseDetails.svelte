@@ -136,14 +136,12 @@
 	}
 
 	.details:hover {
-		transform: scale(1.02);
 		box-shadow: 0 4px 14px rgba(0, 0, 0, 0.12);
 	}
 
 	.detail input {
 		flex: 1; /* Makes the input fields take up all remaining space */
 		width: 100%;
-		padding: 5px;
 		border: 1px solid #ccc;
 		border-radius: 4px;
 	}
@@ -155,10 +153,10 @@
 	}
 
 	.button-group {
-		margin-left: auto; /* Push buttons to the right */
+		margin-left: auto;
 		padding-left: 15px;
 		display: flex;
-		gap: 8px; /* Add spacing between buttons */
+		gap: 8px;
 	}
 
 	h4 {
