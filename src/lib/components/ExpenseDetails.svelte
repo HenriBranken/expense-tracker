@@ -113,6 +113,21 @@
 </div>
 
 <style>
+	.input-title,
+	h4 {
+		min-width: 0;
+		flex-grow: 1; /* Ensures they take the same space */
+		overflow: hidden;
+		text-overflow: ellipsis;
+	}
+
+	.input-title {
+		width: 100%; /* Ensure `input` doesn't shrink */
+		/* max-width: 300px; Set a reasonable limit */
+		padding: 5px;
+		font-size: 1rem;
+	}
+
 	div.deets {
 		margin-top: 10px;
 		display: grid;
