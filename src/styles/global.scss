@@ -8,4 +8,6 @@ main {
 body {
 	font-family: 'Poppins', sans-serif;
 	margin: 0;
+	width: 100vw; /* Don't let the page shift when the scrollbar appears */
+	overflow-y: scroll; /* Ensures the scrollbar space is reserved */
 }
