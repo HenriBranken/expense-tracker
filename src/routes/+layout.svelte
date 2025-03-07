@@ -4,8 +4,24 @@
 	import Footer from '../lib/components/Footer.svelte';
 </script>
 
-<Header />
+<div class="layout">
+	<Header />
 
-<slot />
+	<div class="slot">
+		<slot />
+	</div>
 
-<Footer />
+	<Footer />
+</div>
+
+<style>
+	.layout {
+		display: flex;
+		flex-direction: column;
+		min-height: 100vh; /* Ensures it takes full viewport height */
+	}
+
+	.slot {
+		flex-grow: 1; /* Pushes footer down */
+	}
+</style>
