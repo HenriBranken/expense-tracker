@@ -32,7 +32,7 @@
 	li {
 		margin: 0 20px;
 		font-size: 18px;
-		color: #333;
+		color: #e7e7e7;
 		cursor: pointer;
 	}
 	.active {

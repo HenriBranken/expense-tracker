@@ -11,10 +11,12 @@
 
 <style>
 	.expense-list {
+		max-width: 75vw;
 		display: grid;
 		grid-template-columns: repeat(4, 1fr); /* 4 equal columns. */
 		gap: 20px;
 		align-items: stretch; /* Ensures items stretch to the same height (per row). */
+		margin: 0 auto;
 	}
 
 	/* 3 columns for medium-large screens */
