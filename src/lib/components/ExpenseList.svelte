@@ -5,17 +5,16 @@
 
 <div class="expense-list">
 	{#each expenses as expense (expense._id)}
-		<div>
-			<ExpenseDetails {expense} />
-		</div>
+		<ExpenseDetails {expense} />
 	{/each}
 </div>
 
 <style>
 	.expense-list {
 		display: grid;
-		grid-template-columns: repeat(4, 1fr); /* Default: 4 columns */
+		grid-template-columns: repeat(4, 1fr); /* 4 equal columns. */
 		gap: 20px;
+		align-items: stretch; /* Ensures items stretch to the same height (per row). */
 	}
 
 	/* 3 columns for medium-large screens */
