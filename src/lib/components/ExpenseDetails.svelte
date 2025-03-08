@@ -75,7 +75,7 @@
 	{#if isEditing}
 		<!-- Editable Form -->
 		<div class="deets">
-			<span class="label">Description:</span>
+			<span class="label">Info:</span>
 			<span class="detail">
 				<input type="text" id="description" bind:value={editableFields.description} />
 			</span>
@@ -104,7 +104,7 @@
 		</div>
 	{:else}
 		<div class="deets">
-			<span class="label">Description:</span> <span class="detail">{expense.description}</span>
+			<span class="label">Info:</span> <span class="detail">{expense.description}</span>
 			<span class="label">Date:</span> <span class="detail">{expense.date}</span>
 			<span class="label">Amount:</span>
 			<span class="detail">
