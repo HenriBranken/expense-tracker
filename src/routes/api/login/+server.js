@@ -18,6 +18,13 @@ export async function POST({ request }) {
 	 *
 	 * email --> passes the user's email to Auth.js for authentication.
 	 * redirect: false --> Prevent the browser from redirecting to another page after signing in.
+	 *
+	 * signIn() --> communicates with the authentication API Route
+	 *    `src/routes/api/auth/[...auth]/+server.js`
+	 *    [1] Sends the credentials to the Auth.js API.
+	 *    [2] If authentication is successful, create a Session.
+	 *    [3] If authentication fails, an error is returned.
+	 * In summary, it triggers authentication using the Auth.js Credentials Provider.
 	 */
 	return signIn('credentials', { email, redirect: false });
 }
