@@ -67,7 +67,9 @@
 				<SaveButton onClick={triggerEdit} />
 			{/if}
 			<EditButton {isEditing} onClick={toggleEdit} />
-			<DelButton expenseId={expense._id} />
+			{#if !isEditing}
+				<DelButton expenseId={expense._id} />
+			{/if}
 		</div>
 	</div>
 	{#if isEditing}

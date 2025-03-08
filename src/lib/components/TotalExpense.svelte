@@ -22,6 +22,8 @@
 		color: white;
 		margin: auto;
 		margin-top: 15px;
+		border-top-left-radius: 5px;
+		border-top-right-radius: 5px;
 	}
 
 	.currency {

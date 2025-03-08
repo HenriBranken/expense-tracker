@@ -1,5 +1,6 @@
 <header>
 	<h1>Expense Tracker</h1>
+	<span>By <a target="_blank" href="https://github.com/HenriBranken">Henri Branken</a></span>
 </header>
 
 <style>
@@ -7,7 +8,7 @@
 		background: black;
 		padding: 5px;
 		display: flex;
-		flex-direction: row;
+		flex-direction: column;
 		align-items: center;
 		justify-content: center;
 		text-align: center;
@@ -18,5 +19,17 @@
 		font-size: 3rem;
 		padding: 0;
 		margin: 5px;
+	}
+
+	span {
+		color: white;
+		font-size: small;
+		margin-top: -5pt;
+	}
+
+	a:link,
+	a:visited {
+		color: white;
+		font-weight: bolder;
 	}
 </style>
