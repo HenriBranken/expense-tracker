@@ -154,7 +154,7 @@
 		position: sticky;
 		top: 0;
 		width: 100%;
-		background-color: #333;
+		background-color: rgba(0, 0, 0, 0.85);
 		z-index: 1000;
 		padding-bottom: 30px;
 		padding-top: 5px;
