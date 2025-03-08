@@ -103,13 +103,18 @@
 		return !boolFlag ? arr.reduce((sum, elem) => sum + elem.amount, 0) : 0;
 	};
 
+	const computeNumberOfExpenses = (arr) => {
+		return arr.length;
+	};
+
 	$: total = computeTotal(expenses, isLoading);
+	$: nExpenses = computeNumberOfExpenses(expenses);
 </script>
 
 <main>
 	<div class="nav">
 		<Tabs {activeTab} {tabs} on:tabChange={tabChange} />
-		{#if activeTab === tabs[0]}
+		{#if activeTab === tabs[0] && nExpenses > 0}
 			<div class="sort-bar">
 				{#each sortFields as field}
 					<div class="sort-row">
@@ -135,12 +140,16 @@
 	</div>
 	{#if isLoading}
 		<Loading />
-	{:else if !isLoading && activeTab === tabs[0]}
+	{:else if !isLoading && activeTab === tabs[0] && nExpenses > 0}
 		<ExpenseList {expenses} />
+	{:else if !isLoading && activeTab === tabs[0] && nExpenses == 0}
+		<div>
+			I need to add a component here to alert the user that they still need to buy something.
+		</div>
 	{:else if !isLoading && activeTab === tabs[1]}
 		<ExpenseForm2 on:addNewExpense={handleAddExpense} />
 	{/if}
-	{#if !isLoading && activeTab === tabs[0]}
+	{#if !isLoading && activeTab === tabs[0] && nExpenses > 0}
 		<TotalExpense {total} />
 	{/if}
 </main>
