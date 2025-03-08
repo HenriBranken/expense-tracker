@@ -1,6 +1,16 @@
+<script>
+	import GitHubIcon from './GitHubIcon.svelte';
+</script>
+
 <header>
 	<h1>Expense Tracker</h1>
-	<span>By <a target="_blank" href="https://github.com/HenriBranken">Henri Branken</a></span>
+	<span
+		>By <a target="_blank" href="https://github.com/HenriBranken">Henri Branken</a>&nbsp; <GitHubIcon
+			width={15}
+			height={15}
+			color="white"
+		/></span
+	>
 </header>
 
 <style>
