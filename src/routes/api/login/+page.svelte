@@ -55,3 +55,7 @@
 {#if errorMessage}
 	<p>{errorMessage}</p>
 {/if}
+
+{#if successMessage}
+	<p>{successMessage}</p>
+{/if}
