@@ -1,9 +1,10 @@
 /**
- * GET  --> /api/auth/session     Retrieve Session Info
- * POST --> /api/auth/signin      Authentication and start session
- * POST --> /api/auth/signout     Destroy Session
+ * GET  --> /api/auth/session     Retrieve Session Info.
+ * POST --> /api/auth/signin      Authentication and start session | Login.
+ * POST --> /api/auth/signout     Destroy Session | Logout.
  *
  * Session Management is handled automatically by SvelteKitAuth();
+ * This +server.js enables Session-Based Authentication.
  */
 
 import { SvelteKitAuth } from '@auth/sveltekit';

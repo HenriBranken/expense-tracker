@@ -1,3 +1,10 @@
+/**
+ * Handles new registration.
+ * Hashes the password and stores it inside MongoDB.
+ *
+ * SvelteKitAuth() doesn't handle User Registration.
+ */
+
 import User from '$lib/server/models/User';
 import { connectDB } from '$lib/server/db'; // Ensure the DataBase Connection
 
