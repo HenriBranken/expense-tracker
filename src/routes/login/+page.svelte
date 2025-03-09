@@ -28,7 +28,7 @@
 
 				// Automatically log-in after registration
 				if (response.status in [200, 201]) {
-				successMessage = 'Registration successful!';
+					successMessage = 'Registration successful!';
 					await signIn('credentials', { email, password, redirect: false });
 				}
 
