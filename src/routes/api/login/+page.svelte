@@ -26,7 +26,12 @@
 
 				const response = await axios.post('/api/register', { email, password });
 
+				// Automatically log-in after registration
+				if (response.status in [200, 201]) {
 				successMessage = 'Registration successful!';
+					await signIn('credentials', { email, password, redirect: false });
+				}
+
 				isRegistering = false;
 			} else {
 				// Handle the Login.
