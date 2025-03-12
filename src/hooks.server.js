@@ -7,10 +7,11 @@ import { connectDB } from '$lib/server/db';
 // Ensure database connection
 await connectDB();
 
-export const handle = SvelteKitAuth({
+export const { handle } = SvelteKitAuth({
 	providers: [
 		CredentialsProvider({
-			name: 'Credentials',
+			id: 'credentials',
+			name: 'Email and Password',
 			credentials: {
 				email: { label: 'Email', type: 'email', required: true },
 				password: { label: 'Password', type: 'password', required: true }
@@ -31,5 +32,17 @@ export const handle = SvelteKitAuth({
 			}
 		})
 	],
-	secret: process.env.AUTH_SECRET
+	secret: process.env.AUTH_SECRET,
+	callbacks: {
+		async session({ session, user }) {
+			session.user = user; // ensure the `user` is attached to the session.
+			return session;
+		},
+		async jwt({ token, user }) {
+			if (user) {
+				token.user = { id: user.id, email: user.email };
+			}
+			return token;
+		}
+	}
 });

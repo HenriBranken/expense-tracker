@@ -1,6 +1,7 @@
 <script>
 	import { signIn } from '@auth/sveltekit/client';
-	import axios from 'axios';
+	import { goto } from '$app/navigation';
+
 	let email = '';
 	let password = '';
 	let confirmPassword = '';
@@ -18,27 +19,45 @@
 
 		try {
 			if (isRegistering) {
-				// Handle the Registration.
-				if (password !== confirmPassword) {
-					errorMessage = 'Passwords do not match.';
-					return;
-				}
+				const response = await fetch('/api/register', {
+					method: 'POST',
+					headers: { 'Content-Type': 'application/json' },
+					body: JSON.stringify({ email, password })
+				});
 
-				const response = await axios.post('/api/register', { email, password });
-
-				// Automatically log-in after registration
-				if (response.status in [200, 201]) {
+				if (response.ok) {
 					successMessage = 'Registration successful!';
-					await signIn('credentials', { email, password, redirect: false });
-				}
+					const result = await signIn('credentials', {
+						email,
+						password,
+						redirect: false
+					});
 
-				isRegistering = false;
+					if (!result?.error) {
+						goto('/expenses');
+					} else {
+						errorMessage = 'Login failed after registration.';
+					}
+				} else {
+					const data = await response.json();
+					errorMessage = data.error || 'Registration failed.';
+				}
 			} else {
-				// Handle the Login.
-				await signIn('credentials', { email, password, redirect: false });
+				const result = await signIn('credentials', {
+					email,
+					password,
+					redirect: false
+				});
+
+				if (!result?.error) {
+					goto('/expenses');
+				} else {
+					errorMessage = 'Invalid credentials. Please try again.';
+				}
 			}
 		} catch (error) {
-			errorMessage = error.response?.data?.error || 'Something went wrong during registration.';
+			errorMessage = 'Something went wrong during authentication.';
+			console.error(error);
 		}
 	};
 </script>
@@ -52,15 +71,14 @@
 	<button type="submit">{isRegistering ? 'Register' : 'Login'}</button>
 </form>
 
-<!-- Defaults to:  'No Account? Register' -->
 <button on:click={toggleIsRegistering}>
 	{isRegistering ? 'Already have an account? Login' : 'No Account? Register'}
 </button>
 
 {#if errorMessage}
-	<p>{errorMessage}</p>
+	<p style="color: red;">{errorMessage}</p>
 {/if}
 
 {#if successMessage}
-	<p>{successMessage}</p>
+	<p style="color: green;">{successMessage}</p>
 {/if}
